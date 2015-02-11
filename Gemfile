@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
+gem 'minitest'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -24,10 +25,14 @@ group :development, :test do
 	gem 'sqlite3'
   gem 'webrat'
 	gem 'rspec-rails'
+  gem 'autotest-rails'
+  gem 'capybara'
+  #gem 'spork-rails'
 end
 
 group :test do
   gem 'rspec'
+  gem 'autotest'
 end
 
 # To use ActiveModel has_secure_password
