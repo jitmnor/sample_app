@@ -4,6 +4,10 @@ RSpec.describe PagesController, :type => :controller do
   render_views
   Capybara.ignore_hidden_elements = false
 
+  before (:each) do
+    @base_title = "Ruby on Rails Tutorial Sample App"
+  end
+  
   describe "GET #home" do
     it "returns http success" do
       get :home
@@ -12,7 +16,7 @@ RSpec.describe PagesController, :type => :controller do
     
     it "returns the right title" do
       get :home
-      expect(response.body).to have_xpath("//title",:text => "Ruby on Rails Tutorial Sample App | Home")
+      expect(response.body).to have_xpath("//title",:text => "#{@base_title} | Home")
     end
     
     it "should have a non-blank body" do
@@ -28,7 +32,7 @@ RSpec.describe PagesController, :type => :controller do
     end
     it "returns the right title" do
       get :contact
-      expect(response.body).to have_xpath("//title",:text => "Ruby on Rails Tutorial Sample App | Contact")
+      expect(response.body).to have_xpath("//title",:text => "#{@base_title} | Contact")
     end
   end
   
@@ -39,7 +43,7 @@ RSpec.describe PagesController, :type => :controller do
     end
     it "returns the right title" do
       get :about
-      expect(response.body).to have_xpath("//title",:text => "Ruby on Rails Tutorial Sample App | About")
+      expect(response.body).to have_xpath("//title",:text => "#{@base_title} | About")
     end
   end
   
@@ -50,7 +54,7 @@ RSpec.describe PagesController, :type => :controller do
     end
     it "returns the right title" do
       get :help
-      expect(response.body).to have_xpath("//title",:text => "Ruby on Rails Tutorial Sample App | Help")
+      expect(response.body).to have_xpath("//title",:text => "#{@base_title} | Help")
     end
   end
 
