@@ -7,23 +7,24 @@ RSpec.describe "LayoutLinks", :type => :request do
   describe "GET /layout_links" do
     
     it "should have a homepage at '/'" do
-       get '/'
-       expect(response.body).to have_xpath("//title",:text => "Home")
+       visit '/'
+       expect(page).to have_title("Ruby on Rails Tutorial Sample App | Home")
+       # expect(response.body).to have_xpath("//title",:text => "Home")
     end
     
-    # it "should have a Contact page at '/contact'" do
-#       get '/contact'
-#       expect(response.body).to have_xpath("//title",:text => "Contact")
-#     end
-#
-#     it "should have a About page at '/about'" do
-#       get '/about'
-#       expect(response.body).to have_xpath("//title",:text => "About")
-#     end
-#
-    # it "should have a Help page at '/help'" do
-   #   get '/help'
-   #   expect(response.body).to have_xpath("//title",:text => "Help")
-   # end
+    it "should have a Contact page at '/contact'" do
+      visit '/contact'
+      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Contact")
+    end
+
+    it "should have a About page at '/about'" do
+      visit '/about'
+      expect(page).to have_title("Ruby on Rails Tutorial Sample App | About")
+    end
+
+    it "should have a Help page at '/help'" do
+      visit '/help'
+      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Help")
+   end
   end
 end
