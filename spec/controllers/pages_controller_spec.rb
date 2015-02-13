@@ -34,12 +34,23 @@ RSpec.describe PagesController, :type => :controller do
   
   describe "GET #about" do
     it "returns http success" do
-      get 'about'
+      get :about
       expect(response).to have_http_status(:success)
     end
     it "returns the right title" do
       get :about
       expect(response.body).to have_xpath("//title",:text => "Ruby on Rails Tutorial Sample App | About")
+    end
+  end
+  
+  describe "GET #help" do
+    it "returns http success" do
+      get :help
+      expect(response).to have_http_status(:success)
+    end
+    it "returns the right title" do
+      get :help
+      expect(response.body).to have_xpath("//title",:text => "Ruby on Rails Tutorial Sample App | Help")
     end
   end
 
