@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe User, :type => :model do
   
   before (:each)do
-    @attr = {:name => "Example user", :email => "user@example.com"}
+    @attr = {
+      :name => "Example user", 
+      :email => "user@example.com",
+      :password => "foobar",
+      :password_confirmation => "foobar"
+    }
   end
   
   it "should create a new instance given a valid attribute" do
@@ -53,6 +58,54 @@ RSpec.describe User, :type => :model do
     User.create!(@attr.merge(:email=>upcase_email))
     user_with_duplicate_email = User.new(@attr)
     expect(user_with_duplicate_email).not_to be_valid
+  end
+  
+  describe "passwords" do # passwords is vitual attribute
+    before(:each) do
+      @user = User.new(@attr)
+    end
+    
+    it "should have a password attribute" do
+      expect(@user).to respond_to(:password)
+    end
+    
+    it "shold have a password confirmation aatribute" do
+      expect(@user).to respond_to(:password_confirmation)
+    end
+  end
+  
+  describe "password validations" do
+    
+    it "should require a password" do
+      expect(User.new(@attr.merge(:password => "", :password_confirmation =>""))).not_to be_valid
+    end
+    
+    it "should require a matching password confirmation" do
+      expect(User.new(@attr.merge(:password_confirmation =>"invalidPassword"))).not_to be_valid
+    end
+    
+    it "should reject short passwords" do
+      short = "a" * 5
+      hash = User.new(@attr.merge(:password => short, :password_confirmation =>short))
+      expect(hash).not_to be_valid
+    end
+    
+    it "should reject long passwords" do
+      short = "a" * 41
+      hash = User.new(@attr.merge(:password => short, :password_confirmation =>short))
+      expect(hash).not_to be_valid
+    end
+  end
+  
+  describe "password encryption" do
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+    
+    it "should have an encrypted password attribute" do
+      expect(@user).to respond_to (:encrypted_password)
+    end
+  
   end
   
 end
