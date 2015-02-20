@@ -1,9 +1,27 @@
 require 'rails_helper'
 
+
 RSpec.describe UsersController, :type => :controller do
 
   render_views
   Capybara.ignore_hidden_elements = false;
+  
+  describe "GET #show" do
+    
+    before (:each) do
+      @user = Factory(:user)
+    end
+    
+    it "should be successfull" do
+      get :show, :id => @user.id
+      expect(response).to be_success
+    end
+    
+    it "should find the right user" do
+      get :show, :id => @user.id
+      expect(assigns(:user)).to eq(@user)    
+    end
+  end
   
   describe "GET #new" do
     it "returns http success" do

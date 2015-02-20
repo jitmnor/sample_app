@@ -34,6 +34,7 @@ end
 group :test do
   gem 'rspec'
   gem 'autotest'
+  gem 'factory_girl_rails', '1.4.0'
 end
 
 group :production do 
